@@ -55,17 +55,14 @@
 	 
         <div style="display: flex; justify-content: flex-end;">
              <span style="margin-right: 15px;">글쓴이 : ${board.freeBoardWriter}</span>
-            <span>작성일: <fmt:formatDate value='${board.freeBoardDate}' pattern='yyyy.M.d' /></span>
+            <span>작성일: <fmt:formatDate value='${board.freeBoardDate}' pattern='yyyy.M.d HH:mm' /></span>
         </div>
         <div style="display: flex; justify-content: flex-end;">
         	<span> 👁 ${board.freeBoardView}</span>
         </div>
 	 
 	 <p>내용</p>
-	<div class="form-floating mb-3">
-	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 100px" disabled>${board.freeBoardContent}</textarea>
-	  <label for="floatingTextarea2Disabled"></label>
-	</div>
+	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px" disabled>${board.freeBoardContent}</textarea>
 	 </div>
 </body>
 </html>

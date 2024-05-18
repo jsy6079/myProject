@@ -7,6 +7,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Lob;
+import jakarta.persistence.PrePersist;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 import lombok.Getter;
@@ -24,9 +26,11 @@ public class FreeBoard {
 	@Column(name="freeBoardNo")
 	private Long freeBoardNo;
 	
-	@Column(name="freeBoardTitle",nullable = false)
+	// 제목 글씨수 제한 30글자이하
+	@Column(name="freeBoardTitle",nullable = false, length = 90)
 	private String freeBoardTitle;
 	
+	@Lob
 	@Column(name="freeBoardContent", nullable = false)
 	private String freeBoardContent;
 	
@@ -37,6 +41,10 @@ public class FreeBoard {
 	private Date freeBoardDate;
 	
 	@Column(name="freeBoardView", nullable = false)
-	private Long freeBoardView;
+	private Long freeBoardView = 0L;
 	
+    @PrePersist
+    protected void onCreate() {
+        this.freeBoardDate = new Date();
+    }
 }

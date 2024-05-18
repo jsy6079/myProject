@@ -16,12 +16,12 @@ public class freeBoardService {
 	@Autowired
 	private freeBoardRepository freeboardrepository;
 	
-	// 모든 게시글 조회
+	// 자유 게시판 전체 조회
 	public List<FreeBoard> getAllBoard(){
 		return freeboardrepository.findAll(Sort.by(Sort.Direction.DESC, "freeBoardNo"));
 	}
 	
-	// 상세보기 조회
+	// 자유 게시판 상세 조회
     @Transactional
     public FreeBoard getBoardById(Long freeBoardNo) {
         FreeBoard board = freeboardrepository.findById(freeBoardNo).orElse(null);
@@ -31,9 +31,11 @@ public class freeBoardService {
         }
         return board;
     }
-//	public FreeBoard getBoardById(Long freeBoardNo) {
-//		return freeboardrepository.findById(freeBoardNo).orElse(null);
-//
-//    }
+    
+    // 자유 게시판 글 쓰기
+    @Transactional
+    public FreeBoard saveBoard(FreeBoard freeboard) {
+    	return freeboardrepository.save(freeboard);
+    }
 	
 }

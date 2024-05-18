@@ -25,6 +25,12 @@ public class MainController {
 		return "main";
 	}
 	
+	// 글 쓰기 페이지 이동
+	@GetMapping("/free/freeBoardWrite")
+	public String freeBoardWrite() {
+		return "free/freeBoardWrite";
+	}
+	
 	
 	
 

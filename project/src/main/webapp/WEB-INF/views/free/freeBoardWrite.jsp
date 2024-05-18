@@ -7,8 +7,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>메인 페이지</title>
-    
+    <title>글 등록 페이지</title>
 </head>
 
 <body>
@@ -50,37 +49,25 @@
 	</nav>
  <!-- Nav -->
  
-<div class="container">
-    <div class="d-flex justify-content-end" style="margin-top: 20px;">
-        <button type="button" class="btn btn-primary" onclick="location.href='/free/freeBoardWrite'">글쓰기</button>
-    </div>
-    <div class="d-flex align-items-center justify-content-center">
-        <table class="table">
-            <thead class="table-secondary">
-                <tr>
-                    <th scope="col" style="width: 5%;">번호</th>
-                    <th scope="col" style="width: 40%;">제목</th> <!-- 제목 부분 넓힘 -->
-                    <th scope="col" style="width: 15%;">작성자</th> <!-- 작성자 부분 모음 -->
-                    <th scope="col" style="width: 15%;">작성일</th> <!-- 작성일 부분 모음 -->
-                    <th scope="col" style="width: 10%;">조회수</th>
-                </tr>
-            </thead>
-            <tbody>
-                <c:forEach var="board" items="${boards}">
-                <tr>
-                    <td>${board.freeBoardNo}</td>
-                    <td><a href="/freeBoardDetails/${board.freeBoardNo}">${board.freeBoardTitle}</a></td>
-                    <td>${board.freeBoardWriter}</td>
-                    <td><fmt:formatDate value="${board.freeBoardDate}" pattern="yy.M.d" /></td>
-                    <td>${board.freeBoardView}</td>
-                </tr>
-                </c:forEach>
-            </tbody>
-        </table>
-    </div>
-</div>
-
-
-
+	<div class="container" style="border: 1px solid #ccc; margin-top: 50px; padding: 20px;">	
+	 <form action="/freeBoardWrite" method="post">
+	 <p>제목</p>
+	 <input class="form-control" placeholder="제목을 입력해주세요." type="text" name="freeBoardTitle" id="freeBoardTitle" aria-label="Disabled input example" required maxlength="30">
+	 
+	 <!-- 작성자는 임의로 만든것! 로그인 구현하면 넘어오게 할거임 -->
+	 <p>작성자</p>
+	 <input class="form-control" placeholder="작성자를 입력해주세요." type="text" name="freeBoardWriter" id="freeBoardWriter" aria-label="Disabled input example" required>
+	 
+	 <p>내용</p>
+	  <textarea class="form-control" placeholder="내용을 입력해주세요." name="freeBoardContent" id="freeBoardContent" style="height: 500px" required></textarea>
+	     
+	     <div class="d-flex justify-content-end" style="margin-top: 20px;">
+        <button type="submit" class="btn btn-primary">등록하기</button>
+    	</div>
+    </form>	
+	 </div>
+	 
+	 
+	 
 </body>
 </html>
