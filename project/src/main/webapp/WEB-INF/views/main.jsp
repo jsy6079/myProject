@@ -8,6 +8,24 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>메인 페이지</title>
+<style>
+    .pagination {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+    }
+    .pagination a, .pagination span {
+        margin: 0 5px;
+        padding: 3px 10px;
+        border: 1px solid #ccc;
+        color: #333;
+        text-decoration: none;
+    }
+    .pagination a.active, .pagination span.active {
+        background-color: #007bff;
+        color: #fff;
+    }
+</style>
     
 </head>
 
@@ -51,10 +69,8 @@
  <!-- Nav -->
  
 <div class="container">
-    <div class="d-flex justify-content-end" style="margin-top: 20px;">
-        <button type="button" class="btn btn-primary" onclick="location.href='/free/freeBoardWrite'">글쓰기</button>
-    </div>
-    <div class="d-flex align-items-center justify-content-center">
+
+    <div class="d-flex align-items-center justify-content-center" style="margin-top: 50px;">
         <table class="table">
             <thead class="table-secondary">
                 <tr>
@@ -66,21 +82,42 @@
                 </tr>
             </thead>
             <tbody>
-                <c:forEach var="board" items="${boards}">
-                <tr>
-                    <td>${board.freeBoardNo}</td>
-                    <td><a href="/freeBoardDetails/${board.freeBoardNo}">${board.freeBoardTitle}</a></td>
-                    <td>${board.freeBoardWriter}</td>
-                    <td><fmt:formatDate value="${board.freeBoardDate}" pattern="yy.M.d" /></td>
-                    <td>${board.freeBoardView}</td>
-                </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+                    <c:forEach var="board" items="${freeBoardPage.content}">
+                        <tr>
+                            <td>${board.freeBoardNo}</td>
+                            <td><a href="/freeBoardDetails/${board.freeBoardNo}">${board.freeBoardTitle}</a></td>
+                            <td>${board.freeBoardWriter}</td>
+                            <td><fmt:formatDate value="${board.freeBoardDate}" pattern="yyyy.MM.dd" /></td>
+                            <td>${board.freeBoardView}</td>
+                        </tr>
+                    </c:forEach>
+                </tbody>
+            </table>          
+        </div>
+   <div class="d-flex justify-content-end">
+      <button type="button" class="btn btn-primary" onclick="location.href='/free/freeBoardWrite'">글쓰기</button>
+  </div>
     </div>
+
+<!-- 페이징 구역 -->
+<div class="pagination">
+    <c:if test="${!freeBoardPage.isFirst()}">
+        <a href="?page=${freeBoardPage.number - 1}&size=${freeBoardPage.size}">&laquo;</a>
+    </c:if>
+    <c:forEach var="i" begin="${freeBoardPage.number - (freeBoardPage.number % 3)}" end="${Math.min((freeBoardPage.number - (freeBoardPage.number % 3) + 2), freeBoardPage.totalPages - 1)}">
+        <c:choose>
+            <c:when test="${i == freeBoardPage.number}">
+                <span class="active">${i + 1}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="?page=${i}&size=${freeBoardPage.size}">${i + 1}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
+    <c:if test="${!freeBoardPage.isLast()}">
+        <a href="?page=${freeBoardPage.number + 1}&size=${freeBoardPage.size}">&raquo;</a>
+    </c:if>
 </div>
-
-
-
+<!-- 페이징 구역 -->
 </body>
 </html>

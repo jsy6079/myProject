@@ -32,5 +32,6 @@ public class FreeboardController {
 		freeboardService.saveBoard(freeboard);
 		return "redirect:/main";
 	}
+
 	
 }

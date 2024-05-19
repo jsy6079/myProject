@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.data.domain.Page;
 
 import com.green.entity.FreeBoard;
 import com.green.service.freeBoardService;
@@ -14,13 +16,18 @@ import com.green.service.freeBoardService;
 public class MainController {
 	
 	@Autowired
-	private freeBoardService boardService;
+	private freeBoardService freeBoardService;
 	
-	// 메인 이동 + 게시판 전체 조회
+	// 메인 이동 + 게시판 전체 조회 (페이징 적용)
 	@GetMapping("/main")
-	public String main(Model model) {
-		List<FreeBoard> boards = boardService.getAllBoard();
-		model.addAttribute("boards",boards);
+	public String main(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "0") int size,  Model model) {
+		
+		if(size < 1) {
+			size = 10;
+		}
+		
+		Page<FreeBoard> freeBoardPage = freeBoardService.getFreeBoards(page, size);
+		model.addAttribute("freeBoardPage", freeBoardPage);
 		
 		return "main";
 	}
