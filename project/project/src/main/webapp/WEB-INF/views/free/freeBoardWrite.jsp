@@ -7,7 +7,7 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-    <title>상세 페이지</title>
+    <title>글 등록 페이지</title>
 </head>
 
 <body>
@@ -50,34 +50,24 @@
  <!-- Nav -->
  
 	<div class="container" style="border: 1px solid #ccc; margin-top: 50px; padding: 20px;">	
+	 <form action="/freeBoardWrite" method="post">
 	 <p>제목</p>
-	 <input class="form-control" type="text" value="${board.freeBoardTitle}" aria-label="Disabled input example" disabled readonly>
+	 <input class="form-control" placeholder="제목을 입력해주세요." type="text" name="freeBoardTitle" id="freeBoardTitle" aria-label="Disabled input example" required maxlength="30">
 	 
-        <div style="display: flex; justify-content: flex-end;">
-             <span style="margin-right: 15px;">글쓴이 : ${board.freeBoardWriter}</span>
-            <span>작성일: <fmt:formatDate value='${board.freeBoardDate}' pattern='yyyy.M.d HH:mm' /></span>
-        </div>
-        <div style="display: flex; justify-content: flex-end;">
-        	<span> 👁 ${board.freeBoardView}</span>
-        </div>
+	 <!-- 작성자는 임의로 만든것! 로그인 구현하면 넘어오게 할거임 -->
+	 <p>작성자</p>
+	 <input class="form-control" placeholder="작성자를 입력해주세요." type="text" name="freeBoardWriter" id="freeBoardWriter" aria-label="Disabled input example" required>
 	 
-	 <p style="margin-top: 10px;" >내용 <button type="button" class=" btn btn-primary" style="margin-left: 1100px;" onclick="location.href='/free/freeBoardEdit/${board.freeBoardNo}'">수정</button><button type="button" class=" btn btn-danger" style="margin-left: 10px;" onclick="confirmDelete(${board.freeBoardNo})">삭제</button></p>
-	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px" disabled>${board.freeBoardContent}</textarea>
+	 <p>내용</p>
+	  <textarea class="form-control" placeholder="내용을 입력해주세요." name="freeBoardContent" id="freeBoardContent" style="height: 500px" required></textarea>
+	     
+	     <div class="d-flex justify-content-end" style="margin-top: 20px;">
+        <button type="submit" class="btn btn-primary">등록하기</button>
+    	</div>
+    </form>	
 	 </div>
 	 
-	 <script>
-    function confirmDelete(freeBoardNo) {
-        // 삭제하기 전에 확인 메시지를 표시
-        var result = confirm("정말로 이 글을 삭제하시겠습니까?");
-        
-        // 사용자가 확인을 누를 경우, 삭제 페이지로 이동
-        if (result) {
-            location.href = '/free/freeBoardDelete/' + freeBoardNo;
-        }
-    }
-    
-
-</script>
-
+	 
+	 
 </body>
 </html>

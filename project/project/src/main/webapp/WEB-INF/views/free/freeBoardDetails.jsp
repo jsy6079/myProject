@@ -61,23 +61,8 @@
         	<span> 👁 ${board.freeBoardView}</span>
         </div>
 	 
-	 <p style="margin-top: 10px;" >내용 <button type="button" class=" btn btn-primary" style="margin-left: 1100px;" onclick="location.href='/free/freeBoardEdit/${board.freeBoardNo}'">수정</button><button type="button" class=" btn btn-danger" style="margin-left: 10px;" onclick="confirmDelete(${board.freeBoardNo})">삭제</button></p>
+	 <p>내용</p>
 	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px" disabled>${board.freeBoardContent}</textarea>
 	 </div>
-	 
-	 <script>
-    function confirmDelete(freeBoardNo) {
-        // 삭제하기 전에 확인 메시지를 표시
-        var result = confirm("정말로 이 글을 삭제하시겠습니까?");
-        
-        // 사용자가 확인을 누를 경우, 삭제 페이지로 이동
-        if (result) {
-            location.href = '/free/freeBoardDelete/' + freeBoardNo;
-        }
-    }
-    
-
-</script>
-
 </body>
 </html>

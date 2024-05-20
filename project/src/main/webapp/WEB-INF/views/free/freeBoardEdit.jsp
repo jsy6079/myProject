@@ -49,9 +49,10 @@
 	</nav>
  <!-- Nav -->
  
+ <form action="/free/freeBoardEditSubmit/${freeBoardNo}" method="post">
 	<div class="container" style="border: 1px solid #ccc; margin-top: 50px; padding: 20px;">	
 	 <p>제목</p>
-	 <input class="form-control" type="text" value="${board.freeBoardTitle}" aria-label="Disabled input example" disabled readonly>
+	 <input class="form-control" type="text" name="freeBoardTitle" value="${board.freeBoardTitle}" aria-label="Disabled input example">
 	 
         <div style="display: flex; justify-content: flex-end;">
              <span style="margin-right: 15px;">글쓴이 : ${board.freeBoardWriter}</span>
@@ -61,23 +62,18 @@
         	<span> 👁 ${board.freeBoardView}</span>
         </div>
 	 
-	 <p style="margin-top: 10px;" >내용 <button type="button" class=" btn btn-primary" style="margin-left: 1100px;" onclick="location.href='/free/freeBoardEdit/${board.freeBoardNo}'">수정</button><button type="button" class=" btn btn-danger" style="margin-left: 10px;" onclick="confirmDelete(${board.freeBoardNo})">삭제</button></p>
-	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px" disabled>${board.freeBoardContent}</textarea>
+	 <p style="margin-top: 10px;" >내용 
+	  <textarea class="form-control" name="freeBoardContent" id="floatingTextarea2Disabled" style="height: 500px">${board.freeBoardContent}</textarea>
+	  
+	  <!-- Hidden inputs to retain existing values -->
+	  <input type="hidden" name="freeBoardDate" value='${board.freeBoardDate}'/>
+	  <input type="hidden" name="freeBoardView" value="${board.freeBoardView}" />
+	  <input type="hidden" name="freeBoardWriter" value="${board.freeBoardWriter}" />
+	  
+	  
+	  <button type="submit" class=" btn btn-primary" style="margin-left: 1180px; margin-top: 10px;">수정 완료</button>
 	 </div>
-	 
-	 <script>
-    function confirmDelete(freeBoardNo) {
-        // 삭제하기 전에 확인 메시지를 표시
-        var result = confirm("정말로 이 글을 삭제하시겠습니까?");
-        
-        // 사용자가 확인을 누를 경우, 삭제 페이지로 이동
-        if (result) {
-            location.href = '/free/freeBoardDelete/' + freeBoardNo;
-        }
-    }
-    
-
-</script>
-
+</form>
+	
 </body>
 </html>
