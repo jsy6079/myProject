@@ -8,6 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>상세 페이지</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
 
 <body>
@@ -65,6 +66,28 @@
 	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px" disabled>${board.freeBoardContent}</textarea>
 	 </div>
 	 
+<div class="container" style="margin-top: 50px;">
+    <h5>댓글 추가</h5>
+
+    <form id="commentForm" class="mt-4">
+        <div class="form-group">
+            <label for="commentId">작성자</label>
+            <input type="text" class="form-control" id="commentId" name="commentId" required>
+        </div>
+        <div class="form-group">
+            <label for="commentContent">내용</label>
+            <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required placeholder="이쁜 댓글만 써주세요! 🙋‍"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary" style="margin-top : 10px; margin-left : 1200px">등록하기</button>
+    </form>
+
+    <hr>
+
+    <ul class="list-group" id="commentsList">
+        <!-- 댓글이 여기에 동적으로 추가됩니다 -->
+    </ul>
+</div>
+	 
 	 <script>
     function confirmDelete(freeBoardNo) {
         // 삭제하기 전에 확인 메시지를 표시
@@ -74,6 +97,120 @@
         if (result) {
             location.href = '/free/freeBoardDelete/' + freeBoardNo;
         }
+    }
+    
+    
+    
+    const freeBoardNo = ${freeBoardNo};
+    
+    
+    // 댓글 조회
+    
+    function loadComments() {
+        $.ajax({
+            url: `/api/comment/freeboard/${freeBoardNo}`,
+            type: 'GET',
+            success: function(comments) {
+                const commentsList = $('#commentsList');
+                
+                commentsList.empty();
+
+                comments.forEach(comment => {
+                    // 각 댓글에 대한 정보를 적절한 HTML 요소로 생성하여 commentsList에 추가
+                    const commentItem = $('<li>').addClass('list-group-item border-0');
+
+                    const deleteButton = $('<button>').addClass('btn-close btn-sm').attr({
+                        type: 'button',
+                        'aria-label': 'Close'
+                    }).click(function() {
+                    	 confirmDeleteComment(comment.freeBoardCommentNo);
+                    	
+                    });
+
+                    const commentId = $('<div>').addClass('form-group d-flex justify-content-between align-items-center').append(
+                        $('<label>').addClass('m-0').text('📌'+comment.commentId),
+                        deleteButton
+                    );
+                    
+                    
+
+                    const commentContent = $('<div>').addClass('form-group').append(
+/*                         $('<label>').text('내용'), */
+                        $('<textarea>').addClass('form-control').attr({
+                            rows: '3',
+                            disabled: true
+                        }).text(comment.commentContent)
+                    );
+
+                    const commentDateISO = comment.commentDate;
+                    const formattedCommentDate = new Date(commentDateISO).toLocaleDateString('ko-KR', {
+                        year: '2-digit',
+                        month: '2-digit',
+                        day: '2-digit',
+                        hour: '2-digit',
+                        minute: '2-digit'
+                    });
+                    const commentDateElement = $('<small>').addClass('text-muted').text(formattedCommentDate);
+
+                    commentItem.append(commentId, commentContent, commentDateElement);
+
+                    commentsList.append(commentItem);
+                });
+            }
+        });
+    }
+
+    $(document).ready(function() {
+        loadComments();
+        
+        
+     // 댓글 등록
+        
+        $('#commentForm').on('submit', function(event) {
+            event.preventDefault();
+            const commentData = {
+                commentContent: $('#commentContent').val(),
+                commentId: $('#commentId').val()
+            };
+            $.ajax({
+                url: `/api/comment/freeboard/${freeBoardNo}`,
+                type: 'POST',
+                contentType: 'application/json',
+                data: JSON.stringify(commentData),
+                success: function(newComment) {
+                	alert('댓글 등록이 완료되었습니다!');
+                    loadComments(); // 댓글 목록 새로고침
+                    $('#commentContent').val(''); // 입력 필드 비우기
+                    $('#commentId').val(''); // 입력 필드 비우기
+                    
+                }
+            });
+        });
+    });
+
+    // 페이지 로드 시 댓글 불러오기
+    $(document).ready(function() {
+        loadComments();
+    });
+    
+    
+    // 댓글 삭제
+    
+   function confirmDeleteComment(freeBoardCommentNo){
+    	if(confirm('정말로 이 댓글을 삭제하시겠습니까?')){
+    		$.ajax({
+    			url:`/api/comment/freeboard/${freeBoardCommentNo}`,
+    			type:'DELETE',
+    			success: function(){
+    				loadComments();
+    			},
+    			error: function(){
+    				console.log('댓글 삭제 에러!');
+    				console.log(freeBoardCommentNo);
+
+    			}
+    		})
+    	}
     }
     
 
