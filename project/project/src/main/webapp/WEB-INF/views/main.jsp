@@ -101,46 +101,23 @@
 
 <!-- 페이징 구역 -->
 <div class="pagination">
-
-    <c:if test="${!freeBoardPage.isFirst()}">
-        <a href="?page=0&size=${freeBoardPage.size}">처음으로</a>
-    </c:if>
-
     <c:if test="${!freeBoardPage.isFirst()}">
         <a href="?page=${freeBoardPage.number - 1}&size=${freeBoardPage.size}">&laquo;</a>
     </c:if>
-
-    
-
-    <c:if test="${freeBoardPage.totalPages > 0}">
-
-        <c:forEach var="i" begin="${Math.max(freeBoardPage.number - (freeBoardPage.number % 3), 0)}" 
-            end="${Math.min(freeBoardPage.number - (freeBoardPage.number % 3) + 2, freeBoardPage.totalPages - 1)}">
-
-            <c:choose>
-            	
-                <c:when test="${i == freeBoardPage.number}">
-                    <span class="active">${i + 1}</span>
-                </c:when>
-      
-                <c:otherwise>
-                    <a href="?page=${i}&size=${freeBoardPage.size}">${i + 1}</a>
-                </c:otherwise>
-            </c:choose>
-        </c:forEach>
-    </c:if>
-    
+    <c:forEach var="i" begin="${freeBoardPage.number - (freeBoardPage.number % 3)}" end="${Math.min((freeBoardPage.number - (freeBoardPage.number % 3) + 2), freeBoardPage.totalPages - 1)}">
+        <c:choose>
+            <c:when test="${i == freeBoardPage.number}">
+                <span class="active">${i + 1}</span>
+            </c:when>
+            <c:otherwise>
+                <a href="?page=${i}&size=${freeBoardPage.size}">${i + 1}</a>
+            </c:otherwise>
+        </c:choose>
+    </c:forEach>
     <c:if test="${!freeBoardPage.isLast()}">
         <a href="?page=${freeBoardPage.number + 1}&size=${freeBoardPage.size}">&raquo;</a>
     </c:if>
-    
-    <c:if test="${!freeBoardPage.isLast()}">
-        <a href="?page=${freeBoardPage.totalPages - 1}&size=${freeBoardPage.size}">끝으로</a>
-    </c:if>
-    
-    
 </div>
 <!-- 페이징 구역 -->
-
 </body>
 </html>
