@@ -38,11 +38,7 @@ public class freeBoardCommentService {
 	
 	
 	
-<<<<<<< HEAD
-	// 해당 자유게시판 댓글 삭제
-=======
 	//
->>>>>>> 21e41d1b2c15e3925f3f61ba3af2572f92824116
 	
     @Transactional
     public void deleteCommentById(Long freeBoardCommentNo) {
