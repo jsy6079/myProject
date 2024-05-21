@@ -51,6 +51,7 @@ public class FreeboardCommentController {
 	
 	
 	// 댓글 삭제
+<<<<<<< HEAD
 
     @DeleteMapping("/api/comment/freeboard/{freeBoardCommentNo}")
     public ResponseEntity<FreeBoardComment> deleteComment(@PathVariable Long freeBoardCommentNo) {
@@ -58,6 +59,12 @@ public class FreeboardCommentController {
     	freeboardcommentservice.deleteCommentById(freeBoardCommentNo);
         return ResponseEntity.ok().build();
         
+=======
+    @DeleteMapping("/api/comment/freeboard/{freeBoardCommentNo}")
+    public ResponseEntity<FreeBoardComment> deleteComment(@PathVariable Long freeBoardCommentNo) {
+    	freeboardcommentservice.deleteCommentById(freeBoardCommentNo);
+        return ResponseEntity.ok().build();
+>>>>>>> 21e41d1b2c15e3925f3f61ba3af2572f92824116
     }
 
 	

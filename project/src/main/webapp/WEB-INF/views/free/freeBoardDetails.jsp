@@ -116,6 +116,7 @@
                 commentsList.empty();
 
                 comments.forEach(comment => {
+<<<<<<< HEAD
           
                     const commentItem = $('<li>').addClass('list-group-item border-0');
 
@@ -142,6 +143,18 @@
                     }); 
                     // 여기까지
                     
+=======
+                    // 각 댓글에 대한 정보를 적절한 HTML 요소로 생성하여 commentsList에 추가
+                    const commentItem = $('<li>').addClass('list-group-item border-0');
+
+                    const deleteButton = $('<button>').addClass('btn-close btn-sm').attr({
+                        type: 'button',
+                        'aria-label': 'Close'
+                    }).click(function() {
+                    	 confirmDeleteComment(comment.freeBoardCommentNo);
+                    	
+                    });
+>>>>>>> 21e41d1b2c15e3925f3f61ba3af2572f92824116
 
                     const commentId = $('<div>').addClass('form-group d-flex justify-content-between align-items-center').append(
                         $('<label>').addClass('m-0').text('📌'+comment.commentId),
@@ -213,14 +226,22 @@
     // 댓글 삭제
     
    function confirmDeleteComment(freeBoardCommentNo){
+<<<<<<< HEAD
 	   alert("num : "+freeBoardCommentNo);
+=======
+>>>>>>> 21e41d1b2c15e3925f3f61ba3af2572f92824116
     	if(confirm('정말로 이 댓글을 삭제하시겠습니까?')){
     		$.ajax({
     			url:`/api/comment/freeboard/${freeBoardCommentNo}`,
     			type:'DELETE',
+<<<<<<< HEAD
     			success: function(result){
     				loadComments();
     				console.log('1111111111111');
+=======
+    			success: function(){
+    				loadComments();
+>>>>>>> 21e41d1b2c15e3925f3f61ba3af2572f92824116
     			},
     			error: function(){
     				console.log('댓글 삭제 에러!');
