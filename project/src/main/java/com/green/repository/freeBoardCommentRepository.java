@@ -11,6 +11,8 @@ public interface freeBoardCommentRepository extends JpaRepository<FreeBoardComme
 	// 해당 자유게시판의 아이디에 해당하는 댓글 목록 불러오기
 
 	List<FreeBoardComment> findByFreeBoard_freeBoardNoOrderByCommentDateAsc(Long freeBoardNo);
+
+
 	
 
 }

@@ -8,7 +8,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <title>상세 페이지</title>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -62,7 +62,10 @@
         	<span> 👁 ${board.freeBoardView}</span>
         </div>
 	 
-	 <p style="margin-top: 10px;" >내용 <button type="button" class=" btn btn-primary" style="margin-left: 1100px;" onclick="location.href='/free/freeBoardEdit/${board.freeBoardNo}'">수정</button><button type="button" class=" btn btn-danger" style="margin-left: 10px;" onclick="confirmDelete(${board.freeBoardNo})">삭제</button></p>
+	 <p style="margin-top: 10px;" >내용  
+     <button type="button" class="btn btn-primary" style="margin-left: 1100px;" onclick="location.href='/free/freeBoardEdit/${board.freeBoardNo}';">수정</button>
+     <button type="button" class=" btn btn-danger" style="margin-left: 10px;" onclick="confirmDelete(${board.freeBoardNo})">삭제</button>
+     </p>
 	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px" disabled>${board.freeBoardContent}</textarea>
 	 </div>
 	 
@@ -76,7 +79,7 @@
         </div>
         <div class="form-group">
             <label for="commentContent">내용</label>
-            <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required placeholder="이쁜 댓글만 써주세요! 🙋‍"></textarea>
+            <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required placeholder="비방글은 관리자에 의해 삭제될수있습니다."></textarea>
         </div>
         <button type="submit" class="btn btn-primary" style="margin-top : 10px; margin-left : 1200px">등록하기</button>
     </form>
@@ -87,6 +90,28 @@
         <!-- 댓글이 여기에 동적으로 추가됩니다 -->
     </ul>
 </div>
+
+
+<footer class = "py-3 my-4">
+	<ul class ="nav justify-content-center border-bottom pb-3 mb-3">
+	<li class="">
+		<a href="/main" class="nav-link px-2 text-muted">메인</a>
+	</li>
+	<li class="">
+		<a href="/main" class="nav-link px-2 text-muted">자유게시판</a>
+	</li>
+	<li class="">
+		<a href="#" class="nav-link px-2 text-muted">구매게시판</a>
+	</li>
+	<li class="">
+		<a href="#" class="nav-link px-2 text-muted">판매게시판</a>
+	</li>
+	<li class="">
+		<a href="#" class="nav-link px-2 text-muted">질문과답변</a>
+	</li>
+	</ul>
+	<p class="text-center text-muted">@ 2024 Company, Inc</p>
+</footer>
 	 
 	 <script>
     function confirmDelete(freeBoardNo) {
@@ -101,9 +126,6 @@
     
     
     
-    const freeBoardNo = ${freeBoardNo};
-    
-    
     // 댓글 조회
     
     function loadComments() {
@@ -116,23 +138,26 @@
                 commentsList.empty();
 
                 comments.forEach(comment => {
-                    // 각 댓글에 대한 정보를 적절한 HTML 요소로 생성하여 commentsList에 추가
-                    const commentItem = $('<li>').addClass('list-group-item border-0');
-
-                    const deleteButton = $('<button>').addClass('btn-close btn-sm').attr({
-                        type: 'button',
-                        'aria-label': 'Close'
-                    }).click(function() {
-                    	 confirmDeleteComment(comment.freeBoardCommentNo);
-                    	
-                    });
+          
+                    const commentItem = $('<li>').addClass('list-group-item border-0');                   
 
                     const commentId = $('<div>').addClass('form-group d-flex justify-content-between align-items-center').append(
                         $('<label>').addClass('m-0').text('📌'+comment.commentId),
-                        deleteButton
+                            $('<button>').addClass('btn-close btn-sm').click(function() {
+                            const commentIdToDelete = comment.freeBoardCommentNo; 
+                            $.ajax({
+                                url: '/api/comment/freeboard/' + commentIdToDelete, 
+                                type: 'DELETE', 
+                                success: function(response) {
+                                    loadComments();
+                                },
+                                error: function() {
+                                    console.log('댓글 삭제 실패');
+                                }
+                            });
+                        })
                     );
-                    
-                    
+
 
                     const commentContent = $('<div>').addClass('form-group').append(
 /*                         $('<label>').text('내용'), */
@@ -193,25 +218,7 @@
         loadComments();
     });
     
-    
-    // 댓글 삭제
-    
-   function confirmDeleteComment(freeBoardCommentNo){
-    	if(confirm('정말로 이 댓글을 삭제하시겠습니까?')){
-    		$.ajax({
-    			url:`/api/comment/freeboard/${freeBoardCommentNo}`,
-    			type:'DELETE',
-    			success: function(){
-    				loadComments();
-    			},
-    			error: function(){
-    				console.log('댓글 삭제 에러!');
-    				console.log(freeBoardCommentNo);
 
-    			}
-    		})
-    	}
-    }
     
 
 </script>

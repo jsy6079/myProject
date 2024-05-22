@@ -38,10 +38,9 @@ public class freeBoardCommentService {
 	
 	
 	
-	//
+	// 해당 자유게시판 댓글 삭제
 	
-    @Transactional
-    public void deleteCommentById(Long freeBoardCommentNo) {
+    public void deleteComment(Long freeBoardCommentNo) {
     	freeboardcommentrepository.deleteById(freeBoardCommentNo);
     }
 	

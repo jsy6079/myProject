@@ -142,5 +142,26 @@
 </div>
 <!-- 페이징 구역 -->
 
+	<footer class = "py-3 my-4">
+		<ul class ="nav justify-content-center border-bottom pb-3 mb-3">
+		<li class="">
+			<a href="/main" class="nav-link px-2 text-muted">메인</a>
+		</li>
+		<li class="">
+			<a href="/main" class="nav-link px-2 text-muted">자유게시판</a>
+		</li>
+		<li class="">
+			<a href="#" class="nav-link px-2 text-muted">구매게시판</a>
+		</li>
+		<li class="">
+			<a href="#" class="nav-link px-2 text-muted">판매게시판</a>
+		</li>
+		<li class="">
+			<a href="#" class="nav-link px-2 text-muted">질문과답변</a>
+		</li>
+		</ul>
+		<p class="text-center text-muted">@ 2024 Company, Inc</p>
+	</footer>
+
 </body>
 </html>
