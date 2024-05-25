@@ -52,7 +52,7 @@
  <form action="/free/freeBoardEditSubmit/${freeBoardNo}" method="post">
 	<div class="container" style="border: 1px solid #ccc; margin-top: 50px; padding: 20px;">	
 	 <p>제목</p>
-	 <input class="form-control" type="text" name="freeBoardTitle" value="${board.freeBoardTitle}" aria-label="Disabled input example">
+	 <input class="form-control" type="text" name="freeBoardTitle" value="${board.freeBoardTitle}" aria-label="Disabled input example" required>
 	 
         <div style="display: flex; justify-content: flex-end;">
              <span style="margin-right: 15px;">글쓴이 : ${board.freeBoardWriter}</span>
@@ -63,7 +63,7 @@
         </div>
 	 
 	 <p style="margin-top: 10px;" >내용 
-	  <textarea class="form-control" name="freeBoardContent" id="floatingTextarea2Disabled" style="height: 500px">${board.freeBoardContent}</textarea>
+	  <textarea class="form-control" name="freeBoardContent" id="floatingTextarea2Disabled" style="height: 500px" required>${board.freeBoardContent}</textarea>
 	  
 	  <!-- Hidden inputs to retain existing values -->
 	  <input type="hidden" name="freeBoardDate" value='${board.freeBoardDate}'/>
