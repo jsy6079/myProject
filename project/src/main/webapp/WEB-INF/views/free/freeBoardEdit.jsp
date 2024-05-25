@@ -42,14 +42,14 @@
 	    </div>
 	    <!-- 로그인 및 회원가입 버튼 -->
         <div class="ml-auto">
-            <button class="btn btn-outline-light me-2" type="button">로그인</button>
-            <button class="btn btn-outline-light" type="button">회원가입</button>
+            <button class="btn btn-outline-light me-2" type="button" onclick="location.href='/user/login'" >로그인</button>
+            <button class="btn btn-outline-light" type="button" onclick="location.href='/user/joinMember'">회원가입</button>
         </div>
 	  </div>
 	</nav>
  <!-- Nav -->
  
- <form action="/free/freeBoardEditSubmit/${freeBoardNo}" method="post">
+ <form action="/free/freeBoardEditSubmit/${freeBoardNo}" method="post" onsubmit="showConfirm()">
 	<div class="container" style="border: 1px solid #ccc; margin-top: 50px; padding: 20px;">	
 	 <p>제목</p>
 	 <input class="form-control" type="text" name="freeBoardTitle" value="${board.freeBoardTitle}" aria-label="Disabled input example" required>
@@ -70,9 +70,10 @@
 	  <input type="hidden" name="freeBoardView" value="${board.freeBoardView}" />
 	  <input type="hidden" name="freeBoardWriter" value="${board.freeBoardWriter}" />
 	  
-	  
-	  <button type="submit" class=" btn btn-primary" style="margin-left: 1180px; margin-top: 10px;">수정 완료</button>
-	 </div>
+        <div class="d-flex justify-content-end" style="margin-top: 10px;">
+            <button type="submit" class="btn btn-primary">등록</button>
+        </div>
+     </div>
 </form>
 
 	<footer class = "py-3 my-4">
@@ -95,6 +96,14 @@
 		</ul>
 		<p class="text-center text-muted">@ 2024 Company, Inc</p>
 	</footer>
+	
+	
+	<script>
+		function showConfirm(){
+			alert('수정 완료!');
+			return true;
+		}
+	</script>
 
 </body>
 </html>

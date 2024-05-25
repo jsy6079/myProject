@@ -43,8 +43,8 @@
 	    </div>
 	    <!-- 로그인 및 회원가입 버튼 -->
         <div class="ml-auto">
-            <button class="btn btn-outline-light me-2" type="button">로그인</button>
-            <button class="btn btn-outline-light" type="button">회원가입</button>
+            <button class="btn btn-outline-light me-2" type="button" onclick="location.href='/user/login'" >로그인</button>
+            <button class="btn btn-outline-light" type="button" onclick="location.href='/user/joinMember'">회원가입</button>
         </div>
 	  </div>
 	</nav>
@@ -62,11 +62,15 @@
         	<span> 👁 ${board.freeBoardView}</span>
         </div>
 	 
-	 <p style="margin-top: 10px;" >내용  
-     <button type="button" class="btn btn-primary" style="margin-left: 1100px;" onclick="location.href='/free/freeBoardEdit/${board.freeBoardNo}';">수정</button>
-     <button type="button" class=" btn btn-danger" style="margin-left: 10px;" onclick="confirmDelete(${board.freeBoardNo})">삭제</button>
-     </p>
-	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px" disabled>${board.freeBoardContent}</textarea>
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 10px;">
+            <span>내용</span>
+            <div class="d-flex">
+                <button type="button" class="btn btn-primary" onclick="location.href='/free/freeBoardEdit/${board.freeBoardNo}';">수정</button>
+                <button type="button" class="btn btn-danger" style="margin-left: 10px;" onclick="confirmDelete(${board.freeBoardNo})">삭제</button>
+            </div>
+        </div>
+     
+	  <textarea class="form-control" id="floatingTextarea2Disabled" style="height: 500px; margin-top: 10px;" disabled>${board.freeBoardContent}</textarea>
 	 </div>
 	 
 <div class="container" style="margin-top: 50px;">
@@ -81,7 +85,11 @@
             <label for="commentContent">내용</label>
             <textarea class="form-control" id="commentContent" name="commentContent" rows="3" required placeholder="비방글은 관리자에 의해 삭제될수있습니다."></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" style="margin-top : 10px; margin-left : 1200px">등록하기</button>
+        
+        <div class="d-flex justify-content-end" style="margin-top: 10px;">
+           <button type="submit" class="btn btn-primary" style="margin-top : 10px;">등록</button>
+        </div>
+        
     </form>
 
     <hr>

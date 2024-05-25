@@ -61,8 +61,8 @@
 	    </div>
 	    <!-- 로그인 및 회원가입 버튼 -->
         <div class="ml-auto">
-            <button class="btn btn-outline-light me-2" type="button">로그인</button>
-            <button class="btn btn-outline-light" type="button">회원가입</button>
+            <button class="btn btn-outline-light me-2" type="button" onclick="location.href='/user/login'" >로그인</button>
+            <button class="btn btn-outline-light" type="button" onclick="location.href='/user/joinMember'">회원가입</button>
         </div>
 	  </div>
 	</nav>
