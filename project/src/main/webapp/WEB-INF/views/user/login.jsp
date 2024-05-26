@@ -23,6 +23,9 @@
             width: 100%;
             max-width: 400px;
         }
+        .form-group:not(:last-child) {
+        margin-bottom: 15px;
+    }
     </style>
 </head>
 <body>
@@ -38,7 +41,7 @@
                 <label for="password">비밀번호</label>
                 <input type="password" class="form-control" id="password" name="password" required>
             </div>
-             <button type="submit" class="btn btn-primary btn-block mx-auto" style="display: block; margin-top: 15px;">로그인</button>
+             <button type="submit" class="btn btn-primary btn-block mx-auto" style="display: block; margin-top: 20px;">로그인</button>
         </form>
     </div>
 
